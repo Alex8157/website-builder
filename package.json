@@ -1,0 +1,42 @@
+{
+  "name": "vietnam-node-empty",
+  "author": {
+    "name": "DonVietnam",
+    "email": "don.vietnam.js@gmail.com"
+  },
+  "version": "1.0.0",
+  "description": "Empty template for Node.Js projects.",
+  "license": "MIT",
+  "keywords": [
+    "vietnam",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DonVietnam/vietnam-node-empty"
+  },
+  "bugs": {
+    "url": "https://github.com/DonVietnam/vietnam-node-empty/issues",
+    "email": "don.vietnam.js@gmail.com"
+  },
+  "homepage": "https://github.com/DonVietnam/vietnam-node-empty",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
+    "fix": "eslint --fix --ignore-path .gitignore .",
+    "prettier": "npx prettier --write .",
+    "dev": "webpack serve"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "2.5.1",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3"
+  }
+}
