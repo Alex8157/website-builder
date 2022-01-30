@@ -1,9 +1,9 @@
 const body = document.getElementsByTagName('body');
 
 class ButtonFactory {
-  create() {
+  create(name) {
     const button = document.createElement('button');
-    button.innerHTML = 'Добавить';
+    button.innerHTML = name;
     return button;
   }
 }
@@ -18,6 +18,9 @@ class VirtualNode {
     this.nodes.push(node);
     this.DOMElement.appendChild(node.getDOMElement());
   }
+  deleteNode() {
+    this.DOMElement.remove();
+  }
   getDOMElement() {
     return this.DOMElement;
   }
@@ -27,11 +30,16 @@ class VirtualNodeFactory {
   create(type) {
     const node = new VirtualNode(type);
     const buttonFactory = new ButtonFactory();
-    const button = buttonFactory.create();
+    const button = buttonFactory.create('Добавить');
     button.addEventListener('click', () => {
       node.addNode(this.create('div'));
     });
+    const deleteButton = buttonFactory.create('Удалить');
+    deleteButton.addEventListener('click', () => {
+      node.deleteNode();
+    });
     node.getDOMElement().appendChild(button);
+    node.getDOMElement().appendChild(deleteButton);
     return node;
   }
 }
