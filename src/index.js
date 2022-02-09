@@ -26,21 +26,44 @@ class VirtualNode {
   }
 }
 
+class ButtonBar {
+  constructor(handlers) {
+    this.handlers = handlers;
+  }
+  create() {
+    const node = document.createElement('div');
+    const buttonFactory = new ButtonFactory();
+    for (const key in this.handlers) {
+      const button = buttonFactory.create(this.handlers[key].name);
+      button.addEventListener('click', this.handlers[key].handler);
+      node.appendChild(button);
+    }
+    return node;
+  }
+}
+
 class VirtualNodeFactory {
   create(type) {
     const node = new VirtualNode(type);
-    const buttonFactory = new ButtonFactory();
-    const button = buttonFactory.create('Добавить');
-    button.addEventListener('click', () => {
-      node.addNode(this.create('div'));
-    });
-    const deleteButton = buttonFactory.create('Удалить');
-    deleteButton.addEventListener('click', () => {
-      node.deleteNode();
-    });
-    node.getDOMElement().appendChild(button);
-    node.getDOMElement().appendChild(deleteButton);
+    const buttonBar = new ButtonBar(this.getHandlers(node));
+    node.getDOMElement().appendChild(buttonBar.create());
     return node;
+  }
+  getHandlers(node) {
+    return {
+      add: {
+        name: 'Добавить',
+        handler: () => {
+          node.addNode(this.create('div'));
+        }
+      },
+      delete: {
+        name: 'Удалить',
+        handler: () => {
+          node.deleteNode();
+        }
+      }
+    };
   }
 }
 
