@@ -14,4 +14,7 @@ export class VirtualNode {
   getDOMElement() {
     return this.DOMElement;
   }
+  setClass(name) {
+    this.DOMElement.className = name;
+  }
 }

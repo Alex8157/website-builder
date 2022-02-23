@@ -12,6 +12,7 @@ export class ButtonBar {
       button.addEventListener('click', this.handlers[key].handler);
       bar.appendChild(button);
     }
+    bar.className = 'buttonBar';
     return bar;
   }
 }

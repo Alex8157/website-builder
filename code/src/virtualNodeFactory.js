@@ -1,20 +1,47 @@
 import { VirtualNode } from './virtualNode.js';
 import { Buffer } from './buffer.js';
 import { ButtonBar } from './buttonBar.js';
+import { ActiveBarBuffer } from './activeBarBuffer.js';
 
+const activeBarBuffer = new ActiveBarBuffer();
 const buffer = new Buffer();
-
+let j = 0;
 export class VirtualNodeFactory {
   create(type) {
     const node = new VirtualNode(type);
     const buttonBar = new ButtonBar(this.getHandlers(node));
-    node.getDOMElement().appendChild(buttonBar.create());
+    node.setClass('node');
+    const bar = buttonBar.create();
+    node.getDOMElement().appendChild(bar);
+    node.getDOMElement().addEventListener('click', (event) => {
+      if (node.getDOMElement() === event.target) {
+        activeBarBuffer.setActiveBar(bar);
+      }
+    });
     return node;
   }
   cloneNode(node) {
-    const newNode = new VirtualNode(node.type);
-    newNode.nodes = node.nodes;
-    newNode.DOMElement = node.getDOMElement().cloneNode(true);
+    const newNode = this.create(node.type);
+    if (node.nodes.length > 0) {
+      for (let i = 0; i < node.nodes.length; i++) {
+        newNode.addNode(this.cloneNode(node.nodes[i]));
+      }
+    } else {
+      newNode.DOMElement = node.getDOMElement().cloneNode(true);
+
+      const buttonBar = new ButtonBar(this.getHandlers(newNode));
+      newNode.getDOMElement().getElementsByClassName('buttonBar')[0].remove();
+      const bar = buttonBar.create();
+      newNode.getDOMElement().appendChild(bar);
+      newNode.getDOMElement().addEventListener('click', (event) => {
+        if (newNode.getDOMElement() === event.target) {
+          activeBarBuffer.setActiveBar(bar);
+        }
+      });
+
+      return newNode;
+    }
+
     return newNode;
   }
   getHandlers(node) {
@@ -34,13 +61,13 @@ export class VirtualNodeFactory {
       copy: {
         name: 'Копировать',
         handler: () => {
-          buffer.save(node);
+          buffer.save(this.cloneNode(node));
         }
       },
       cut: {
         name: 'Вырезать',
         handler: () => {
-          buffer.save(node);
+          buffer.save(this.cloneNode(node));
           node.deleteNode();
         }
       },
