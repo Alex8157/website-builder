@@ -2,10 +2,14 @@ import { VirtualNode } from './virtualNode.js';
 import { Buffer } from './buffer.js';
 import { ButtonBar } from './buttonBar.js';
 import { ActiveBarBuffer } from './activeBarBuffer.js';
+import { AddBlock } from './addBlock.js';
 
 const activeBarBuffer = new ActiveBarBuffer();
 const buffer = new Buffer();
-let j = 0;
+const addBlock = new AddBlock();
+
+document.body.appendChild(addBlock.DOMElement);
+
 export class VirtualNodeFactory {
   create(type) {
     const node = new VirtualNode(type);
@@ -41,15 +45,16 @@ export class VirtualNodeFactory {
 
       return newNode;
     }
-
     return newNode;
   }
   getHandlers(node) {
     return {
       add: {
         name: 'Добавить',
-        handler: () => {
-          node.addNode(this.create('div'));
+        handler: async () => {
+          addBlock.DOMElement.setAttribute('open', 'open');
+
+          node.addNode(this.create(await addBlock.getContent()));
         }
       },
       delete: {
