@@ -1,13 +1,17 @@
+const cardDOM =
+  '<p>Выберите блок, который желаете создать</p><button>div</button><button>p</button><button>button</button><button>textarea</button>';
+
 export class AddBlock {
   constructor() {
     this.content = '';
     this.DOMElement = document.createElement('dialog');
+    this.DOMElement.innerHTML = cardDOM;
+
     this.DOMElement.style.zIndex = '10';
     this.DOMElement.style.top = '40%';
     this.DOMElement.style.border = '2px solid rgb(10, 0, 70)';
     this.DOMElement.style.borderRadius = '5px';
-    this.DOMElement.innerHTML =
-      '<p>Выберите блок, который желаете создать</p><button>div</button><button>p</button><button>button</button><button>textarea</button>';
+
     const buttons = this.DOMElement.getElementsByTagName('button');
     for (const button of buttons) {
       button.style.minWidth = '50px';
