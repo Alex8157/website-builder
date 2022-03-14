@@ -13,3 +13,7 @@ button {
   padding: 3px;
   margin: 3px;
 }
+
+p {
+  margin: 0;
+}
