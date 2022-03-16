@@ -34,10 +34,8 @@ export class VirtualNodeFactory {
         newNode.addNode(this.cloneNode(node.nodes[i]));
       }
     } else {
-      newNode.DOMElement = node.getDOMElement().cloneNode(true);
-
+      newNode.DOMElement = node.getDOMElement().cloneNode(false);
       const buttonBar = new ButtonBar(this.getHandlers(newNode));
-      newNode.getDOMElement().getElementsByClassName('buttonBar')[0].remove();
       const bar = buttonBar.create();
       newNode.getDOMElement().appendChild(bar);
       newNode.getDOMElement().addEventListener('click', (event) => {
@@ -45,8 +43,6 @@ export class VirtualNodeFactory {
           activeBarBuffer.setActiveBar(bar);
         }
       });
-
-      return newNode;
     }
     return newNode;
   }
@@ -56,7 +52,6 @@ export class VirtualNodeFactory {
         name: 'Добавить',
         handler: async () => {
           addBlock.DOMElement.setAttribute('open', 'open');
-
           node.addNode(this.create(await addBlock.getContent()));
         }
       },

@@ -1,7 +1,7 @@
 import { rgbToHex } from './rgbToHex.js';
 
 const cardDOM =
-  'Цвет<input id="colorPicker" type="color"><br>Тескт<input id="textChangeBlock"><br><button>Применить</button>';
+  'Цвет<input id="colorPicker" type="color"><br>Тескт<textarea id="textChangeBlock"></textarea><br><button>Применить</button>';
 const defaultStyle = {
   zIndex: '10',
   top: '40%',

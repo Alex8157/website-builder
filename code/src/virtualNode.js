@@ -1,5 +1,6 @@
 export class VirtualNode {
   constructor(type) {
+    this.father = {};
     this.type = type;
     this.nodes = [];
     this.DOMElement = document.createElement(type);
@@ -9,8 +10,12 @@ export class VirtualNode {
   addNode(node) {
     this.nodes.push(node);
     this.DOMElement.appendChild(node.getDOMElement());
+    node.father = this;
   }
   deleteNode() {
+    if (Object.keys(this.father).length) {
+      this.father.nodes.splice(this.father.nodes.indexOf(this), 1);
+    }
     this.DOMElement.remove();
   }
   getDOMElement() {
