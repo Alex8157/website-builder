@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .node {
   border: 2px solid rgb(10, 0, 70);
   border-radius: 5px;
@@ -12,8 +16,4 @@
 button {
   padding: 3px;
   margin: 3px;
-}
-
-p {
-  margin: 0;
 }

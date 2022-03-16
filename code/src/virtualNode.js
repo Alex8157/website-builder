@@ -25,24 +25,21 @@ export class VirtualNode {
   setStyles(styles) {
     this.DOMElement.style.backgroundColor = styles.backgroundColor;
   }
-  getText() {
-    const beginText = this.DOMElement.outerHTML.slice(this.DOMElement.outerHTML.indexOf('>'));
-    return beginText.slice(1, beginText.indexOf('<'));
+  setData({ styles, text }) {
+    this.setStyles(styles);
+    this.setText(text);
+  }
+  getTextChild() {
+    for (const child of this.DOMElement.childNodes) {
+      if (child.nodeName === '#text' && child.textContent.trim().length) return child;
+    }
+
+    const textNode = document.createTextNode('');
+    this.DOMElement.insertBefore(textNode, this.DOMElement.getElementsByClassName('buttonBar')[0]);
+    return textNode;
   }
   setText(text) {
-    const checkHTML = this.DOMElement.outerHTML.slice(this.DOMElement.outerHTML.indexOf('>'));
-    console.log(checkHTML[2]);
-    if (checkHTML[2] === 'p') {
-      const texts = this.DOMElement.getElementsByTagName('p');
-      texts[0].innerHTML = text;
-    } else {
-      const newHTML = document.createElement('p');
-      newHTML.innerHTML = text;
-      this.DOMElement.insertBefore(newHTML, this.DOMElement.getElementsByClassName('buttonBar')[0]);
-    }
-  }
-  setData(data) {
-    this.setStyles(data.styles);
-    this.setText(data.text);
+    const textNode = this.getTextChild();
+    textNode.textContent = text;
   }
 }

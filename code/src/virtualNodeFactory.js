@@ -89,7 +89,7 @@ export class VirtualNodeFactory {
         name: 'Редактировать',
         handler: async () => {
           changeBlock.DOMElement.setAttribute('open', 'open');
-          node.setData(await changeBlock.returnData(node.getStyles(), node.getText()));
+          node.setData(await changeBlock.returnData(node.getStyles(), node.getTextChild().textContent));
         }
       }
     };
