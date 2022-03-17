@@ -1,3 +1,9 @@
+const defaultStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: 'rgb(240, 240, 240)'
+};
+
 export class VirtualNode {
   constructor(type) {
     this.father = {};
@@ -5,7 +11,7 @@ export class VirtualNode {
     this.nodes = [];
     this.DOMElement = document.createElement(type);
 
-    this.DOMElement.style.backgroundColor = 'rgb(240, 240, 240)';
+    Object.assign(this.DOMElement.style, defaultStyle);
   }
   addNode(node) {
     this.nodes.push(node);
@@ -29,6 +35,7 @@ export class VirtualNode {
   }
   setStyles(styles) {
     this.DOMElement.style.backgroundColor = styles.backgroundColor;
+    this.DOMElement.style.flexDirection = styles.flexDirection;
   }
   setData({ styles, text }) {
     this.setStyles(styles);
