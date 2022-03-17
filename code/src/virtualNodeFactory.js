@@ -31,17 +31,9 @@ export class VirtualNodeFactory {
     const newNode = this.create(node.type);
     if (node.nodes.length > 0) {
       for (let i = 0; i < node.nodes.length; i++) {
+        newNode.setText(node.getTextChild().textContent);
+        newNode.setStyles(node.getStyles());
         newNode.addNode(this.cloneNode(node.nodes[i]));
-        newNode.DOMElement = node.getDOMElement().cloneNode(true);
-        newNode.getDOMElement().getElementsByClassName('buttonBar')[0].remove();
-        const buttonBar = new ButtonBar(this.getHandlers(newNode));
-        const bar = buttonBar.create();
-        newNode.getDOMElement().appendChild(bar);
-        newNode.getDOMElement().addEventListener('click', (event) => {
-          if (newNode.getDOMElement() === event.target) {
-            activeBarBuffer.setActiveBar(bar);
-          }
-        });
       }
     } else {
       newNode.DOMElement = node.getDOMElement().cloneNode(true);
