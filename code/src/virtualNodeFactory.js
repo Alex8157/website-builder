@@ -32,9 +32,20 @@ export class VirtualNodeFactory {
     if (node.nodes.length > 0) {
       for (let i = 0; i < node.nodes.length; i++) {
         newNode.addNode(this.cloneNode(node.nodes[i]));
+        newNode.DOMElement = node.getDOMElement().cloneNode(true);
+        newNode.getDOMElement().getElementsByClassName('buttonBar')[0].remove();
+        const buttonBar = new ButtonBar(this.getHandlers(newNode));
+        const bar = buttonBar.create();
+        newNode.getDOMElement().appendChild(bar);
+        newNode.getDOMElement().addEventListener('click', (event) => {
+          if (newNode.getDOMElement() === event.target) {
+            activeBarBuffer.setActiveBar(bar);
+          }
+        });
       }
     } else {
-      newNode.DOMElement = node.getDOMElement().cloneNode(false);
+      newNode.DOMElement = node.getDOMElement().cloneNode(true);
+      newNode.getDOMElement().getElementsByClassName('buttonBar')[0].remove();
       const buttonBar = new ButtonBar(this.getHandlers(newNode));
       const bar = buttonBar.create();
       newNode.getDOMElement().appendChild(bar);
