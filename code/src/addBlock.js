@@ -1,5 +1,6 @@
-const cardDOM =
-  '<p>Выберите блок, который желаете создать</p><button>div</button><button>p</button><button>button</button><button>textarea</button><button>article</button>';
+const cardDOM = `<p>Выберите блок, который желаете создать</p>
+  <button>div</button><button>p</button><button>button</button>
+  <button>textarea</button><button>article</button><button>img</button>`;
 const defaultStyle = {
   zIndex: '10',
   top: '40%',

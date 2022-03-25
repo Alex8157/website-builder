@@ -1,7 +1,13 @@
 const defaultStyle = {
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: 'rgb(240, 240, 240)'
+  backgroundColor: 'rgb(240, 240, 240)',
+  opacity: '1',
+  whiteSpace: 'pre',
+  borderWidth: '2px',
+  borderStyle: 'solid',
+  borderColor: 'rgb(10, 0, 70)',
+  borderRadius: '5px'
 };
 
 export class VirtualNode {
@@ -34,8 +40,13 @@ export class VirtualNode {
     return this.DOMElement.style;
   }
   setStyles(styles) {
-    this.DOMElement.style.backgroundColor = styles.backgroundColor;
     this.DOMElement.style.flexDirection = styles.flexDirection;
+    this.DOMElement.style.opacity = styles.opacity;
+    this.DOMElement.style.backgroundColor = styles.backgroundColor;
+    this.DOMElement.style.borderStyle = styles.borderStyle;
+    this.DOMElement.style.borderWidth = styles.borderWidth;
+    this.DOMElement.style.borderColor = styles.borderColor;
+    this.DOMElement.style.borderRadius = styles.borderRadius;
   }
   setData({ styles, text }) {
     this.setStyles(styles);

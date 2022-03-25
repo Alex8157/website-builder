@@ -89,6 +89,12 @@ export class VirtualNodeFactory {
           changeBlock.DOMElement.setAttribute('open', 'open');
           node.setData(await changeBlock.returnData(node.getStyles(), node.getTextChild().textContent));
         }
+      },
+      hide: {
+        name: 'Скрыть',
+        handler: async () => {
+          activeBarBuffer.hideActiveBar();
+        }
       }
     };
   }

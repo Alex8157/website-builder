@@ -12,4 +12,7 @@ export class ActiveBarBuffer {
       this.activeBar.style.display = 'flex';
     }
   }
+  hideActiveBar() {
+    this.activeBar.style.display = 'none';
+  }
 }
