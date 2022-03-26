@@ -1,8 +1,8 @@
-import { rgbToHex } from './rgbToHex.js';
+import { rgbToHex, hexToRGB } from './rgbToHex.js';
 
 const cardDOM = `
 <div>Цвет:&nbsp<input id="colorPicker" type="color"><br>
-Прозрачность (в %):&nbsp<input id="opacity" style="width:30px"></div><br>
+Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"></div><br>
   <div>Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
   Стиль рамки:&nbsp
   <select id="selectBorderStyle">
@@ -42,7 +42,14 @@ export class ChangeBlock {
   }
   returnData(style, text) {
     document.getElementById('colorPicker').value = rgbToHex(style.backgroundColor);
-    document.getElementById('opacity').value = Math.round((1 - style.opacity) * 100);
+    if (style.backgroundColor.indexOf('rgba') !== -1) {
+      let opacity = style.backgroundColor.slice(style.backgroundColor.indexOf(',') + 1);
+      opacity = opacity.slice(opacity.indexOf(',') + 1);
+      opacity = opacity.slice(opacity.indexOf(',') + 1);
+      document.getElementById('opacity').value = Math.round((1 - opacity.slice(1, -1)) * 100);
+    } else {
+      document.getElementById('opacity').value = 0;
+    }
     document.getElementById('borderWidth').value = style.borderWidth.slice(0, -2);
     switch (style.borderStyle) {
       case 'none':
@@ -75,8 +82,9 @@ export class ChangeBlock {
           text: document.getElementById('textChangeBlock').value
         };
         Object.assign(data.styles, style);
-        data.styles.backgroundColor = document.getElementById('colorPicker').value;
-        data.styles.opacity = 1 - document.getElementById('opacity').value / 100;
+        data.styles.backgroundColor = `${hexToRGB(document.getElementById('colorPicker').value).slice(0, -1)}, ${
+          1 - document.getElementById('opacity').value / 100
+        })`;
         data.styles.borderStyle = document.getElementById('selectBorderStyle').value;
         data.styles.borderWidth = `${document.getElementById('borderWidth').value}px`;
         data.styles.borderColor = document.getElementById('borderColor').value;
