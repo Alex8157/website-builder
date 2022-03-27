@@ -1,7 +1,18 @@
 import { rgbToHex, hexToRGB } from './rgbToHex.js';
 
 const cardDOM = `
-<div>Цвет:&nbsp<input id="colorPicker" type="color"><br>
+<div>Высота блока (в %):
+<input id="heightBlock" style="width:30px"><br>
+<div>Ширина блока (в %):
+<input id="widthBlock" style="width:30px"><br><br>
+<div>Отступ внутри блока (в пикселях):
+<input id="paddingBlock" style="width:30px"><br>
+<div>Отступ снаружи блока (в пикселях):
+<input id="marginBlock" style="width:30px"><br><br>
+<div>Ориентация внутри блока:<br>
+  <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
+  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
+<div>Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
 Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"></div><br>
   <div>Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
   Стиль рамки:&nbsp
@@ -13,15 +24,12 @@ const cardDOM = `
   </select><br>
   Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
   Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br>
-  <div>Ориентация внутри блока:<br>
-  <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
-  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
-  <div>Тескт:&nbsp<textarea id="textChangeBlock" style="min-width:200px; min-height:100px;"></textarea></div><br>
+  <div>Тескт:<br><textarea id="textChangeBlock" style="min-width:200px; min-height:100px;"></textarea></div><br>
   <div><button>Применить</button></div>
   `;
 const defaultStyle = {
   zIndex: '10',
-  top: '40%',
+  top: '10%',
   border: '2px solid rgb(10, 0, 70)',
   borderRadius: '5px'
 };
@@ -41,6 +49,10 @@ export class ChangeBlock {
     });
   }
   returnData(style, text) {
+    document.getElementById('heightBlock').value = style.height.slice(0, -1);
+    document.getElementById('widthBlock').value = style.width.slice(0, -1);
+    document.getElementById('paddingBlock').value = style.padding.slice(0, -2);
+    document.getElementById('marginBlock').value = style.margin.slice(0, -2);
     document.getElementById('colorPicker').value = rgbToHex(style.backgroundColor);
     if (style.backgroundColor.indexOf('rgba') !== -1) {
       let opacity = style.backgroundColor.slice(style.backgroundColor.indexOf(',') + 1);
@@ -82,6 +94,11 @@ export class ChangeBlock {
           text: document.getElementById('textChangeBlock').value
         };
         Object.assign(data.styles, style);
+
+        data.styles.height = `${document.getElementById('heightBlock').value}%`;
+        data.styles.width = `${document.getElementById('widthBlock').value}%`;
+        data.styles.padding = `${document.getElementById('paddingBlock').value}px`;
+        data.styles.margin = `${document.getElementById('marginBlock').value}px`;
         data.styles.backgroundColor = `${hexToRGB(document.getElementById('colorPicker').value).slice(0, -1)}, ${
           1 - document.getElementById('opacity').value / 100
         })`;

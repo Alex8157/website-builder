@@ -1,12 +1,21 @@
 const defaultStyle = {
+  height: '100%',
+  width: '100%',
+
+  padding: '5px',
+  margin: '0',
+
+  backgroundColor: 'rgba(240, 240, 240, 1)',
+
   display: 'flex',
   flexDirection: 'column',
-  backgroundColor: 'rgba(240, 240, 240, 1)',
-  whiteSpace: 'pre',
-  borderWidth: '2px',
+
+  borderWidth: '1px',
   borderStyle: 'solid',
   borderColor: 'rgb(10, 0, 70)',
-  borderRadius: '5px'
+  borderRadius: '5px',
+
+  whiteSpace: 'pre'
 };
 
 export class VirtualNode {
@@ -39,6 +48,10 @@ export class VirtualNode {
     return this.DOMElement.style;
   }
   setStyles(styles) {
+    this.DOMElement.style.height = styles.height;
+    this.DOMElement.style.width = styles.width;
+    this.DOMElement.style.padding = styles.padding;
+    this.DOMElement.style.margin = styles.margin;
     this.DOMElement.style.flexDirection = styles.flexDirection;
     this.DOMElement.style.backgroundColor = styles.backgroundColor;
     this.DOMElement.style.borderStyle = styles.borderStyle;

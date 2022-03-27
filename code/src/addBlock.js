@@ -1,6 +1,11 @@
-const cardDOM = `<p>Выберите блок, который желаете создать</p>
-  <button>div</button><button>p</button><button>button</button>
-  <button>textarea</button><button>article</button><button>img</button>`;
+const cardDOM = `<p>Выберите блок, который желаете создать:</p>
+  <button value = 'div'>Пустой блок</button>
+  <button value = 'article'>Статья</button>
+  <button value = 'p'>Параграф</button>
+  <button value = 'textarea'>Текст</button><br>
+  <button value = 'button'>Кнопка</button>
+  <button value = 'img'>Картинка</button>
+  <button value = 'a'>Ссылка</button>`;
 const defaultStyle = {
   zIndex: '10',
   top: '40%',
@@ -20,7 +25,7 @@ export class AddBlock {
     for (const button of buttons) {
       button.style.minWidth = '50px';
       button.addEventListener('click', () => {
-        this.setContent(button.innerHTML);
+        this.setContent(button.value);
       });
     }
   }
