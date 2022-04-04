@@ -2,10 +2,16 @@ const defaultStyle = {
   height: '100%',
   width: '100%',
 
-  padding: '5px',
-  margin: '0',
+  paddingLeft: '5px',
+  paddingTop: '5px',
+  paddingRight: '5px',
+  paddingBottom: '5px',
+  marginLeft: '0',
+  marginTop: '0',
+  marginRight: '0',
+  marginBottom: '0',
 
-  backgroundColor: 'rgba(240, 240, 240, 1)',
+  backgroundColor: 'rgba(245, 247, 250, 0.8)',
 
   display: 'flex',
   flexDirection: 'column',
@@ -26,6 +32,9 @@ export class VirtualNode {
     this.DOMElement = document.createElement(type);
 
     Object.assign(this.DOMElement.style, defaultStyle);
+  }
+  getLastChild() {
+    return this.nodes[this.nodes.length - 1];
   }
   addNode(node) {
     this.nodes.push(node);
@@ -50,8 +59,16 @@ export class VirtualNode {
   setStyles(styles) {
     this.DOMElement.style.height = styles.height;
     this.DOMElement.style.width = styles.width;
-    this.DOMElement.style.padding = styles.padding;
-    this.DOMElement.style.margin = styles.margin;
+
+    this.DOMElement.style.paddingLeft = styles.paddingLeft;
+    this.DOMElement.style.paddingTop = styles.paddingTop;
+    this.DOMElement.style.paddingRight = styles.paddingRight;
+    this.DOMElement.style.paddingBottom = styles.paddingBottom;
+    this.DOMElement.style.marginLeft = styles.marginLeft;
+    this.DOMElement.style.marginTop = styles.marginTop;
+    this.DOMElement.style.marginRight = styles.marginRight;
+    this.DOMElement.style.marginBottom = styles.marginBottom;
+
     this.DOMElement.style.flexDirection = styles.flexDirection;
     this.DOMElement.style.backgroundColor = styles.backgroundColor;
     this.DOMElement.style.borderStyle = styles.borderStyle;

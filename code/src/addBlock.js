@@ -9,7 +9,8 @@ const cardDOM = `<p>Выберите блок, который желаете с�
 const defaultStyle = {
   zIndex: '10',
   top: '40%',
-  border: '2px solid rgb(10, 0, 70)',
+  position: 'fixed',
+  border: '1px solid black',
   borderRadius: '5px'
 };
 

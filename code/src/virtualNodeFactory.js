@@ -4,14 +4,17 @@ import { ButtonBar } from './buttonBar.js';
 import { ActiveBarBuffer } from './activeBarBuffer.js';
 import { AddBlock } from './addBlock.js';
 import { ChangeBlock } from './changeBlock.js';
+import { AddImg } from './addImg.js';
 
 const activeBarBuffer = new ActiveBarBuffer();
 const buffer = new Buffer();
 const addBlock = new AddBlock();
 const changeBlock = new ChangeBlock();
+const addImg = new AddImg();
 
 document.body.appendChild(addBlock.DOMElement);
 document.body.appendChild(changeBlock.DOMElement);
+document.body.appendChild(addImg.DOMElement);
 
 export class VirtualNodeFactory {
   create(type) {
@@ -55,7 +58,24 @@ export class VirtualNodeFactory {
         name: 'Добавить',
         handler: async () => {
           addBlock.DOMElement.setAttribute('open', 'open');
-          node.addNode(this.create(await addBlock.getContent()));
+          const newNode = await addBlock.getContent();
+          if ((newNode !== 'button') & (newNode !== 'img') & (newNode !== 'a')) {
+            node.addNode(this.create(newNode));
+          } else if (newNode === 'img') {
+            addImg.DOMElement.setAttribute('open', 'open');
+            node.addNode(this.create(newNode));
+            node.getLastChild().DOMElement.setAttribute('src', await addImg.getSrc());
+
+            /* node.addNode(this.create('div'));
+            addImg.DOMElement.setAttribute('open', 'open');
+            node.getLastChild().addNode(this.create(newNode));
+            node.getLastChild().getLastChild().DOMElement.style = '';
+            node
+              .getLastChild()
+              .getLastChild()
+              .DOMElement.setAttribute('src', await addImg.getSrc());
+          } */
+          }
         }
       },
       delete: {

@@ -9,7 +9,7 @@ export class ActiveBarBuffer {
     }
     if (bar) {
       this.activeBar = bar;
-      this.activeBar.style.display = 'flex';
+      this.activeBar.style.display = 'block';
     }
   }
   hideActiveBar() {

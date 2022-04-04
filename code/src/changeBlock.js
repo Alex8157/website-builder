@@ -5,10 +5,25 @@ const cardDOM = `
 <input id="heightBlock" style="width:30px"><br>
 <div>Ширина блока (в %):
 <input id="widthBlock" style="width:30px"><br><br>
-<div>Отступ внутри блока (в пикселях):
-<input id="paddingBlock" style="width:30px"><br>
-<div>Отступ снаружи блока (в пикселях):
-<input id="marginBlock" style="width:30px"><br><br>
+
+<div>Отступ внутри блока слева (в пикселях):
+<input id="paddingBlockLeft" style="width:40px"><br>
+<div>Отступ внутри блока сверху (в пикселях):
+<input id="paddingBlockTop" style="width:40px"><br>
+<div>Отступ внутри блока справа (в пикселях):
+<input id="paddingBlockRight" style="width:40px"><br>
+<div>Отступ внутри блока снизу (в пикселях):
+<input id="paddingBlockBottom" style="width:40px"><br><br>
+
+<div>Отступ снаружи блока слева (в пикселях):
+<input id="marginBlockLeft" style="width:40px"><br>
+<div>Отступ снаружи блока сверху (в пикселях):
+<input id="marginBlockTop" style="width:40px"><br>
+<div>Отступ снаружи блока справа (в пикселях):
+<input id="marginBlockRight" style="width:40px"><br>
+<div>Отступ снаружи блока снизу (в пикселях):
+<input id="marginBlockBottom" style="width:40px"><br><br>
+
 <div>Ориентация внутри блока:<br>
   <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
   <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
@@ -24,14 +39,15 @@ const cardDOM = `
 </select><br>
 Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
 Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br>
-<div>Тескт:<br><textarea id="textChangeBlock" style="min-width:200px; min-height:100px;"></textarea></div><br>
+<div>Текст:<br><textarea id="textChangeBlock" style="min-width:200px; min-height:100px;"></textarea></div><br>
 <div><button>Применить</button></div>
 `;
 
 const defaultStyle = {
   zIndex: '10',
   top: '10%',
-  border: '2px solid rgb(10, 0, 70)',
+  position: 'fixed',
+  border: '1px solid black',
   borderRadius: '5px'
 };
 
@@ -61,8 +77,16 @@ export class ChangeBlock {
 
         data.styles.height = `${document.getElementById('heightBlock').value}%`;
         data.styles.width = `${document.getElementById('widthBlock').value}%`;
-        data.styles.padding = `${document.getElementById('paddingBlock').value}px`;
-        data.styles.margin = `${document.getElementById('marginBlock').value}px`;
+
+        data.styles.paddingLeft = `${document.getElementById('paddingBlockLeft').value}px`;
+        data.styles.paddingTop = `${document.getElementById('paddingBlockTop').value}px`;
+        data.styles.paddingRight = `${document.getElementById('paddingBlockRight').value}px`;
+        data.styles.paddingBottom = `${document.getElementById('paddingBlockBottom').value}px`;
+        data.styles.marginLeft = `${document.getElementById('marginBlockLeft').value}px`;
+        data.styles.marginTop = `${document.getElementById('marginBlockTop').value}px`;
+        data.styles.marginRight = `${document.getElementById('marginBlockRight').value}px`;
+        data.styles.marginBottom = `${document.getElementById('marginBlockBottom').value}px`;
+
         data.styles.backgroundColor = `${hexToRGB(document.getElementById('colorPicker').value).slice(0, -1)}, ${
           1 - document.getElementById('opacity').value / 100
         })`;
@@ -82,8 +106,17 @@ export class ChangeBlock {
   applyStylesToBlock(style, text) {
     document.getElementById('heightBlock').value = style.height.slice(0, -1);
     document.getElementById('widthBlock').value = style.width.slice(0, -1);
-    document.getElementById('paddingBlock').value = style.padding.slice(0, -2);
-    document.getElementById('marginBlock').value = style.margin.slice(0, -2);
+
+    document.getElementById('paddingBlockLeft').value = style.paddingLeft.slice(0, -2);
+    document.getElementById('paddingBlockTop').value = style.paddingTop.slice(0, -2);
+    document.getElementById('paddingBlockRight').value = style.paddingRight.slice(0, -2);
+    document.getElementById('paddingBlockBottom').value = style.paddingBottom.slice(0, -2);
+
+    document.getElementById('marginBlockLeft').value = style.marginLeft.slice(0, -2);
+    document.getElementById('marginBlockTop').value = style.marginTop.slice(0, -2);
+    document.getElementById('marginBlockRight').value = style.marginRight.slice(0, -2);
+    document.getElementById('marginBlockBottom').value = style.marginBottom.slice(0, -2);
+
     document.getElementById('colorPicker').value = rgbToHex(style.backgroundColor);
     document.getElementById('borderColor').value = rgbToHex(style.borderColor);
     document.getElementById('borderRadius').value = style.borderRadius.slice(0, -2);
