@@ -39,7 +39,7 @@ const cardDOM = `
 </select><br>
 Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
 Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br>
-<div>Текст:<br><textarea id="textChangeBlock" style="min-width:200px; min-height:100px;"></textarea></div><br>
+<div>Текст:<br><textarea id="textChangeBlock" style="min-width:100%; min-height:200px;"></textarea></div><br>
 <div><button>Применить</button></div>
 `;
 

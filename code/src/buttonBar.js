@@ -8,7 +8,8 @@ const defaultStyle = {
   transform: 'translate(-50%, -50%)',
   backgroundColor: 'white',
   border: '1px solid black',
-  borderRadius: '5px'
+  borderRadius: '5px',
+  flexDirection: 'row'
 };
 
 export class ButtonBar {

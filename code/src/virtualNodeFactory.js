@@ -16,6 +16,15 @@ document.body.appendChild(addBlock.DOMElement);
 document.body.appendChild(changeBlock.DOMElement);
 document.body.appendChild(addImg.DOMElement);
 
+let selectBlock = '';
+function selectNewBlock(node) {
+  if (selectBlock) {
+    selectBlock.canselSelect();
+  }
+  selectBlock = node;
+  selectBlock.select();
+}
+
 export class VirtualNodeFactory {
   create(type) {
     const node = new VirtualNode(type);
@@ -26,6 +35,7 @@ export class VirtualNodeFactory {
     node.getDOMElement().addEventListener('click', (event) => {
       if (node.getDOMElement() === event.target) {
         activeBarBuffer.setActiveBar(bar);
+        selectNewBlock(node);
       }
     });
     return node;
@@ -47,9 +57,11 @@ export class VirtualNodeFactory {
       newNode.getDOMElement().addEventListener('click', (event) => {
         if (newNode.getDOMElement() === event.target) {
           activeBarBuffer.setActiveBar(bar);
+          selectNewBlock(newNode);
         }
       });
     }
+    newNode.canselSelect();
     return newNode;
   }
   getHandlers(node) {
@@ -62,11 +74,7 @@ export class VirtualNodeFactory {
           if ((newNode !== 'button') & (newNode !== 'img') & (newNode !== 'a')) {
             node.addNode(this.create(newNode));
           } else if (newNode === 'img') {
-            addImg.DOMElement.setAttribute('open', 'open');
-            node.addNode(this.create(newNode));
-            node.getLastChild().DOMElement.setAttribute('src', await addImg.getSrc());
-
-            /* node.addNode(this.create('div'));
+            node.addNode(this.create('div'));
             addImg.DOMElement.setAttribute('open', 'open');
             node.getLastChild().addNode(this.create(newNode));
             node.getLastChild().getLastChild().DOMElement.style = '';
@@ -74,7 +82,6 @@ export class VirtualNodeFactory {
               .getLastChild()
               .getLastChild()
               .DOMElement.setAttribute('src', await addImg.getSrc());
-          } */
           }
         }
       },
@@ -113,6 +120,7 @@ export class VirtualNodeFactory {
       hide: {
         name: 'Скрыть',
         handler: async () => {
+          node.canselSelect();
           activeBarBuffer.hideActiveBar();
         }
       }

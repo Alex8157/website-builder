@@ -21,7 +21,7 @@ const defaultStyle = {
   borderColor: 'rgb(10, 0, 70)',
   borderRadius: '5px',
 
-  whiteSpace: 'pre'
+  whiteSpace: 'pre-line'
 };
 
 export class VirtualNode {
@@ -92,5 +92,13 @@ export class VirtualNode {
   setText(text) {
     const textNode = this.getTextChild();
     textNode.textContent = text;
+  }
+  select() {
+    this.DOMElement.style.outline = '3px solid red';
+    this.DOMElement.style.zIndex = '9';
+  }
+  canselSelect() {
+    this.DOMElement.style.outline = '0px solid red';
+    this.DOMElement.style.zIndex = '0';
   }
 }
