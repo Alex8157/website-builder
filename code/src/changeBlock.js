@@ -1,35 +1,38 @@
 import { rgbToHex, hexToRGB } from './rgbToHex.js';
 
 const cardDOM = `
-<div>Высота блока (в %):
+Высота блока (в % от родительского блока):
 <input id="heightBlock" style="width:30px"><br>
-<div>Ширина блока (в %):
-<input id="widthBlock" style="width:30px"><br><br>
+Ширина блока (в % от родительского блока):
+<input id="widthBlock" style="width:30px"><br>
+<div>Размер блока по содержимому:
+<input type="checkbox" id="sizeByContentCheckbox" style="margin:0"></div><br><br>
 
-<div>Отступ внутри блока слева (в пикселях):
+Отступ внутри блока слева (в пикселях):
 <input id="paddingBlockLeft" style="width:40px"><br>
-<div>Отступ внутри блока сверху (в пикселях):
+Отступ внутри блока сверху (в пикселях):
 <input id="paddingBlockTop" style="width:40px"><br>
-<div>Отступ внутри блока справа (в пикселях):
+Отступ внутри блока справа (в пикселях):
 <input id="paddingBlockRight" style="width:40px"><br>
-<div>Отступ внутри блока снизу (в пикселях):
+Отступ внутри блока снизу (в пикселях):
 <input id="paddingBlockBottom" style="width:40px"><br><br>
 
-<div>Отступ снаружи блока слева (в пикселях):
+Отступ снаружи блока слева (в пикселях):
 <input id="marginBlockLeft" style="width:40px"><br>
-<div>Отступ снаружи блока сверху (в пикселях):
+Отступ снаружи блока сверху (в пикселях):
 <input id="marginBlockTop" style="width:40px"><br>
-<div>Отступ снаружи блока справа (в пикселях):
+Отступ снаружи блока справа (в пикселях):
 <input id="marginBlockRight" style="width:40px"><br>
-<div>Отступ снаружи блока снизу (в пикселях):
+Отступ снаружи блока снизу (в пикселях):
 <input id="marginBlockBottom" style="width:40px"><br><br>
 
-<div>Ориентация внутри блока:<br>
+Ориентация внутри блока:<br>
   <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
-  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
-<div>Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
-Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"></div><br>
-<div>Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
+  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br><br>
+
+Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
+Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"><br>
+Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
 Стиль рамки:&nbsp
 <select id="selectBorderStyle">
   <option id="selectBorderStyleNone" value="none">Нет</option>
@@ -37,10 +40,11 @@ const cardDOM = `
   <option id="selectBorderStyleDouble" value="double">Двойной</option>
   <option id="selectBorderStyleDashed" value="dashed">Пунктир</option>
 </select><br>
-Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
-Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br>
-<div>Текст:<br><textarea id="textChangeBlock" style="min-width:100%; min-height:200px;"></textarea></div><br>
-<div><button>Применить</button></div>
+Цвет рамки:&nbsp<input id="borderColor" type="color"><br><br>
+
+Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br><br>
+Текст:<br><textarea id="textChangeBlock" style="min-width:100%; min-height:200px;"></textarea></div><br>
+<button>Применить</button>
 `;
 
 const defaultStyle = {
@@ -75,8 +79,13 @@ export class ChangeBlock {
         };
         Object.assign(data.styles, style);
 
-        data.styles.height = `${document.getElementById('heightBlock').value}%`;
-        data.styles.width = `${document.getElementById('widthBlock').value}%`;
+        if (document.getElementById('sizeByContentCheckbox').checked) {
+          data.styles.height = 'min-content';
+          data.styles.width = 'min-content';
+        } else {
+          data.styles.height = `${document.getElementById('heightBlock').value}%`;
+          data.styles.width = `${document.getElementById('widthBlock').value}%`;
+        }
 
         data.styles.paddingLeft = `${document.getElementById('paddingBlockLeft').value}px`;
         data.styles.paddingTop = `${document.getElementById('paddingBlockTop').value}px`;
@@ -104,8 +113,7 @@ export class ChangeBlock {
     });
   }
   applyStylesToBlock(style, text) {
-    document.getElementById('heightBlock').value = style.height.slice(0, -1);
-    document.getElementById('widthBlock').value = style.width.slice(0, -1);
+    this.checkHeightWidth(style);
 
     document.getElementById('paddingBlockLeft').value = style.paddingLeft.slice(0, -2);
     document.getElementById('paddingBlockTop').value = style.paddingTop.slice(0, -2);
@@ -126,6 +134,17 @@ export class ChangeBlock {
     this.applyBackgroundColor(style.backgroundColor);
     this.applyBorderStyle(style.borderStyle);
     this.applyflexDirection(style.flexDirection);
+  }
+  checkHeightWidth(style) {
+    if (style.height === 'min-content' && style.width === 'min-content') {
+      document.getElementById('sizeByContentCheckbox').checked = 'checked';
+      document.getElementById('heightBlock').value = '';
+      document.getElementById('widthBlock').value = '';
+    } else {
+      document.getElementById('sizeByContentCheckbox').checked = '';
+      document.getElementById('heightBlock').value = style.height.slice(0, -1);
+      document.getElementById('widthBlock').value = style.width.slice(0, -1);
+    }
   }
   applyBackgroundColor(backgroundColor) {
     if (backgroundColor.indexOf('rgba') !== -1) {

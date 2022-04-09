@@ -1,11 +1,12 @@
-const cardDOM = `<p>Выберите блок, который желаете создать:</p>
+const cardDOM = `<p>Выберите блок, который хотите создать:</p>
   <button value = 'div'>Пустой блок</button>
   <button value = 'article'>Статья</button>
-  <button value = 'p'>Параграф</button>
-  <button value = 'textarea'>Текст</button><br>
+  <button value = 'p'>Параграф</button><br>
   <button value = 'button'>Кнопка</button>
   <button value = 'img'>Картинка</button>
-  <button value = 'a'>Ссылка</button>`;
+  <button value = 'a'>Ссылка</button><br>
+  <button value = 'input'>Поле для ввода текста (одна строка)</button><br>
+  <button value = 'textarea'>Поле для ввода текста (несколько строк)</button>`;
 const defaultStyle = {
   zIndex: '10',
   top: '40%',

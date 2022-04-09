@@ -5,16 +5,19 @@ import { ActiveBarBuffer } from './activeBarBuffer.js';
 import { AddBlock } from './addBlock.js';
 import { ChangeBlock } from './changeBlock.js';
 import { AddImg } from './addImg.js';
+import { AddA } from './addA.js';
 
 const activeBarBuffer = new ActiveBarBuffer();
 const buffer = new Buffer();
 const addBlock = new AddBlock();
 const changeBlock = new ChangeBlock();
 const addImg = new AddImg();
+const addA = new AddA();
 
 document.body.appendChild(addBlock.DOMElement);
 document.body.appendChild(changeBlock.DOMElement);
 document.body.appendChild(addImg.DOMElement);
+document.body.appendChild(addA.DOMElement);
 
 let selectBlock = '';
 function selectNewBlock(node) {
@@ -70,18 +73,17 @@ export class VirtualNodeFactory {
         name: 'Добавить',
         handler: async () => {
           addBlock.DOMElement.setAttribute('open', 'open');
-          const newNode = await addBlock.getContent();
-          if ((newNode !== 'button') & (newNode !== 'img') & (newNode !== 'a')) {
-            node.addNode(this.create(newNode));
-          } else if (newNode === 'img') {
-            node.addNode(this.create('div'));
-            addImg.DOMElement.setAttribute('open', 'open');
-            node.getLastChild().addNode(this.create(newNode));
-            node.getLastChild().getLastChild().DOMElement.style = '';
-            node
-              .getLastChild()
-              .getLastChild()
-              .DOMElement.setAttribute('src', await addImg.getSrc());
+          const nodeName = await addBlock.getContent();
+          if ((nodeName !== 'input') & (nodeName !== 'textarea') & (nodeName !== 'img') & (nodeName !== 'a')) {
+            node.addNode(this.create(nodeName));
+          } else if (nodeName === 'img') {
+            this.addImg(node);
+          } else if (nodeName === 'a') {
+            this.addA(node);
+          } else if (nodeName === 'textarea') {
+            this.addTextarea(node);
+          } else if (nodeName === 'input') {
+            this.addInput(node);
           }
         }
       },
@@ -125,5 +127,62 @@ export class VirtualNodeFactory {
         }
       }
     };
+  }
+
+  async addImg(node) {
+    node.addNode(this.create('div'));
+    addImg.DOMElement.setAttribute('open', 'open');
+    node.getLastChild().addNode(this.create('img'));
+    node.getLastChild().getLastChild().DOMElement.style = '';
+    node
+      .getLastChild()
+      .getLastChild()
+      .DOMElement.setAttribute('src', await addImg.getSrc());
+  }
+  async addA(node) {
+    node.addNode(this.create('div'));
+    addA.DOMElement.setAttribute('open', 'open');
+    node.getLastChild().addNode(this.create('a'));
+    node.getLastChild().getLastChild().DOMElement.style = '';
+    const data = await addA.getData();
+    node.getLastChild().getLastChild().DOMElement.innerHTML = data.text;
+    node.getLastChild().getLastChild().DOMElement.href = data.href;
+
+    node
+      .getLastChild()
+      .getLastChild()
+      .DOMElement.addEventListener(
+        'click',
+        function (e) {
+          e.preventDefault();
+          alert('Сейчас переход по ссылке недоступен');
+        },
+        false
+      );
+
+    // addA.DOMElement.setAttribute('open', 'open');
+    // const data = await addA.getData();
+    // node.addNode(this.create('a'));
+    // node.getLastChild().DOMElement.innerHTML = data.text;
+    // node.getLastChild().DOMElement.href = data.href;
+    // node.getLastChild().DOMElement.removeAttribute('width');
+    // node.getLastChild().DOMElement.removeAttribute('height');
+  }
+  addTextarea(node) {
+    node.addNode(this.create('div'));
+    node.getLastChild().addNode(this.create('textarea'));
+    node.getLastChild().getLastChild().DOMElement.style = '';
+    node.getLastChild().getLastChild().DOMElement.style.width = '100%';
+    node.getLastChild().getLastChild().DOMElement.style.height = '100%';
+    node.getLastChild().getLastChild().DOMElement.style.backgroundColor = 'rgba(0,0,0,0)';
+  }
+  addInput(node) {
+    node.addNode(this.create('div'));
+    node.getLastChild().addNode(this.create('input'));
+    node.getLastChild().getLastChild().DOMElement.style = '';
+    node.getLastChild().getLastChild().DOMElement.style.width = '100%';
+    node.getLastChild().getLastChild().DOMElement.style.height = '100%';
+    node.getLastChild().getLastChild().DOMElement.style.border = '1px solid black';
+    node.getLastChild().getLastChild().DOMElement.style.backgroundColor = 'rgba(0,0,0,0)';
   }
 }

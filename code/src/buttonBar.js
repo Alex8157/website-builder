@@ -3,7 +3,7 @@ import { ButtonFactory } from './buttonFactory.js';
 const defaultStyle = {
   zIndex: '10',
   position: 'fixed',
-  top: '20px',
+  top: '16px',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   backgroundColor: 'white',
