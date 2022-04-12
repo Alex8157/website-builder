@@ -12,6 +12,8 @@ const defaultStyle = {
   marginBottom: '0',
 
   backgroundColor: 'rgba(245, 247, 250, 0.8)',
+  backgroundImage: 'url()',
+  backgroundSize: '100%',
 
   display: 'flex',
   flexDirection: 'column',
@@ -20,6 +22,11 @@ const defaultStyle = {
   borderStyle: 'solid',
   borderColor: 'rgb(10, 0, 70)',
   borderRadius: '5px',
+
+  fontSize: '16px',
+  fontWeight: 'normal',
+  fontStyle: 'normal',
+  color: 'rgb(0, 0, 0)',
 
   whiteSpace: 'pre-line'
 };
@@ -75,6 +82,12 @@ export class VirtualNode {
     this.DOMElement.style.borderWidth = styles.borderWidth;
     this.DOMElement.style.borderColor = styles.borderColor;
     this.DOMElement.style.borderRadius = styles.borderRadius;
+
+    this.DOMElement.style.fontSize = styles.fontSize;
+    this.DOMElement.style.fontWeight = styles.fontWeight;
+    this.DOMElement.style.fontStyle = styles.fontStyle;
+    this.DOMElement.style.color = styles.color;
+    this.DOMElement.style.backgroundImage = `url(${styles.backgroundImage})`;
   }
   setData({ styles, text }) {
     this.setStyles(styles);

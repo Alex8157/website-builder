@@ -1,4 +1,4 @@
-const cardDOM = `<p>Вставьте ссылку на картинку:</p>
+const cardDOM = `<p>Вставьте ссылку на изображение:</p>
 <input>
 <button>Применить</button>`;
 

@@ -1,55 +1,80 @@
 import { rgbToHex, hexToRGB } from './rgbToHex.js';
 
 const cardDOM = `
-Высота блока (в % от родительского блока):
-<input id="heightBlock" style="width:30px"><br>
-Ширина блока (в % от родительского блока):
-<input id="widthBlock" style="width:30px"><br>
-<div>Размер блока по содержимому:
-<input type="checkbox" id="sizeByContentCheckbox" style="margin:0"></div><br><br>
-
-Отступ внутри блока слева (в пикселях):
-<input id="paddingBlockLeft" style="width:40px"><br>
-Отступ внутри блока сверху (в пикселях):
-<input id="paddingBlockTop" style="width:40px"><br>
-Отступ внутри блока справа (в пикселях):
-<input id="paddingBlockRight" style="width:40px"><br>
-Отступ внутри блока снизу (в пикселях):
-<input id="paddingBlockBottom" style="width:40px"><br><br>
-
-Отступ снаружи блока слева (в пикселях):
-<input id="marginBlockLeft" style="width:40px"><br>
-Отступ снаружи блока сверху (в пикселях):
-<input id="marginBlockTop" style="width:40px"><br>
-Отступ снаружи блока справа (в пикселях):
-<input id="marginBlockRight" style="width:40px"><br>
-Отступ снаружи блока снизу (в пикселях):
-<input id="marginBlockBottom" style="width:40px"><br><br>
-
-Ориентация внутри блока:<br>
+<div>
+  <h4 style="margin:0">Настройки блока</h4>
+  Высота блока (в % от родительского блока):
+  <input id="heightBlock" style="width:30px"><br>
+  Ширина блока (в % от родительского блока):
+  <input id="widthBlock" style="width:30px"><br>
+  <div>Размер блока по содержимому:
+  <input type="checkbox" id="sizeByContentCheckbox" style="margin:0"></div>
+  Ориентация внутри блока:
   <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
-  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br><br>
+  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
+</div>
+<div>
+  <h4 style="margin:0">Настройки отступов</h4>
+  Отступ внутри блока слева (в пикселях):
+  <input id="paddingBlockLeft" style="width:40px"><br>
+  Отступ внутри блока сверху (в пикселях):
+  <input id="paddingBlockTop" style="width:40px"><br>
+  Отступ внутри блока справа (в пикселях):
+  <input id="paddingBlockRight" style="width:40px"><br>
+  Отступ внутри блока снизу (в пикселях):
+  <input id="paddingBlockBottom" style="width:40px"><br><br>
 
-Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
-Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"><br>
-Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
-Стиль рамки:&nbsp
-<select id="selectBorderStyle">
-  <option id="selectBorderStyleNone" value="none">Нет</option>
-  <option id="selectBorderStyleSolid" value="solid">Сплошной</option>
-  <option id="selectBorderStyleDouble" value="double">Двойной</option>
-  <option id="selectBorderStyleDashed" value="dashed">Пунктир</option>
-</select><br>
-Цвет рамки:&nbsp<input id="borderColor" type="color"><br><br>
-
-Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"></div><br><br>
-Текст:<br><textarea id="textChangeBlock" style="min-width:100%; min-height:200px;"></textarea></div><br>
-<button>Применить</button>
+  Отступ снаружи блока слева (в пикселях):
+  <input id="marginBlockLeft" style="width:40px"><br>
+  Отступ снаружи блока сверху (в пикселях):
+  <input id="marginBlockTop" style="width:40px"><br>
+  Отступ снаружи блока справа (в пикселях):
+  <input id="marginBlockRight" style="width:40px"><br>
+  Отступ снаружи блока снизу (в пикселях):
+  <input id="marginBlockBottom" style="width:40px"><br><br>
+</div>
+<div>
+  <h4 style="margin:0">Настройки фона</h4>
+  Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
+  Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"><br>
+  Использовать в качестве фона изображение:
+  <input type="checkbox" id="backgroundImageCheckbox" style="margin:0"><br>
+  Ссылка на изображение:&nbsp<input id="backgroundImageURL" style="width:130px"><br><br>
+</div>
+<div>
+  <h4 style="margin:0">Настройки рамки</h4>
+  Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
+  Стиль рамки:&nbsp
+  <select id="selectBorderStyle">
+    <option id="selectBorderStyleNone" value="none">Нет</option>
+    <option id="selectBorderStyleSolid" value="solid">Сплошной</option>
+    <option id="selectBorderStyleDouble" value="double">Двойной</option>
+    <option id="selectBorderStyleDashed" value="dashed">Пунктир</option>
+  </select><br>
+  Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
+  Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"><br><br>
+</div>
+<div>
+  <h4 style="margin:0">Настройки текста</h4>
+  Размер шрифта (в пикселях):
+  <input id="fontSize" style="width:30px"><br>
+  Цвет текста:
+  <input type="color"  id="colorPickerText"><br>
+  Жирный текст:
+  <input type="checkbox" id="fontWeightCheckbox" style="margin:0"><br>
+  Курсив:
+  <input type="checkbox" id="fontStyleCheckbox" style="margin:0"><br>
+  Текст:<br>
+  <textarea id="textChangeBlock" style="min-width:100%; min-height:100px;"></textarea><br>
+</div>
+<div>
+  <button>Применить</button>
+</div>
 `;
 
 const defaultStyle = {
   zIndex: '10',
-  top: '10%',
+  top: '5%',
   position: 'fixed',
   border: '1px solid black',
   borderRadius: '5px'
@@ -103,6 +128,23 @@ export class ChangeBlock {
         data.styles.borderWidth = `${document.getElementById('borderWidth').value}px`;
         data.styles.borderColor = document.getElementById('borderColor').value;
         data.styles.borderRadius = `${document.getElementById('borderRadius').value}px`;
+        data.styles.fontSize = `${document.getElementById('fontSize').value}px`;
+        data.styles.color = document.getElementById('colorPickerText').value;
+        if (document.getElementById('backgroundImageCheckbox').checked) {
+          data.styles.backgroundImage = document.getElementById('backgroundImageURL').value;
+        } else {
+          data.styles.backgroundImage = '';
+        }
+        if (document.getElementById('fontWeightCheckbox').checked) {
+          data.styles.fontWeight = 'bold';
+        } else {
+          data.styles.fontWeight = 'normal';
+        }
+        if (document.getElementById('fontStyleCheckbox').checked) {
+          data.styles.fontStyle = 'italic';
+        } else {
+          data.styles.fontStyle = 'normal';
+        }
         data.styles.flexDirection = this.returnNewFlexDirection();
 
         this.DOMElement.removeAttribute('open');
@@ -129,7 +171,27 @@ export class ChangeBlock {
     document.getElementById('borderColor').value = rgbToHex(style.borderColor);
     document.getElementById('borderRadius').value = style.borderRadius.slice(0, -2);
     document.getElementById('borderWidth').value = style.borderWidth.slice(0, -2);
+    document.getElementById('fontSize').value = style.fontSize.slice(0, -2);
+    document.getElementById('colorPickerText').value = rgbToHex(style.color);
     document.getElementById('textChangeBlock').value = text;
+
+    if (style.backgroundImage.slice(5, -2)) {
+      document.getElementById('backgroundImageCheckbox').checked = 'checked';
+      document.getElementById('backgroundImageURL').value = style.backgroundImage.slice(5, -2);
+    } else {
+      document.getElementById('backgroundImageCheckbox').checked = '';
+    }
+
+    if (style.fontWeight === 'bold') {
+      document.getElementById('fontWeightCheckbox').checked = 'checked';
+    } else {
+      document.getElementById('fontWeightCheckbox').checked = '';
+    }
+    if (style.fontStyle === 'italic') {
+      document.getElementById('fontStyleCheckbox').checked = 'checked';
+    } else {
+      document.getElementById('fontStyleCheckbox').checked = '';
+    }
 
     this.applyBackgroundColor(style.backgroundColor);
     this.applyBorderStyle(style.borderStyle);
