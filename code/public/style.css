@@ -8,13 +8,10 @@ html {
 }
 
 body {
-  padding: 0;
+  padding: 3px;
   margin: 0;
   height: 100%;
   width: 100%;
-}
-
-.node {
 }
 
 .buttonBar {

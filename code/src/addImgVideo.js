@@ -1,4 +1,4 @@
-const cardDOM = `<p>Вставьте ссылку на изображение:</p>
+const cardDOM = `<p id="textInAddImgVideo">777</p>
 <input>
 <button>Применить</button>`;
 
@@ -10,11 +10,13 @@ const defaultStyle = {
   borderRadius: '5px'
 };
 
-export class AddImg {
+export class AddImgVideo {
   constructor() {
     this.src = '';
     this.DOMElement = document.createElement('dialog');
     this.DOMElement.innerHTML = cardDOM;
+    this.textForImg = 'Вставьте ссылку на изображение:';
+    this.textForVideo = 'Вставьте ссылку на видео:';
 
     Object.assign(this.DOMElement.style, defaultStyle);
 
@@ -27,8 +29,13 @@ export class AddImg {
     this.DOMElement.removeAttribute('open');
     this.DOMElement.dispatchEvent(new Event('src-set'));
   }
-  getSrc() {
+  getSrc(type) {
     return new Promise((resolve) => {
+      if (type === 'img') {
+        document.getElementById('textInAddImgVideo').innerHTML = this.textForImg;
+      } else if (type === 'video') {
+        document.getElementById('textInAddImgVideo').innerHTML = this.textForVideo;
+      }
       const listener = () => {
         resolve(this.src);
         this.DOMElement.removeEventListener('src-set', listener);
