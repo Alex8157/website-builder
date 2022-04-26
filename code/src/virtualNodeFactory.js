@@ -22,10 +22,9 @@ document.body.appendChild(addImgVideo.DOMElement);
 document.body.appendChild(addA.DOMElement);
 document.body.appendChild(savePanel.DOMElement);
 
-const linkForSavingFile = document.createElement('a');
-linkForSavingFile.id = 'linkForSavingFile';
-linkForSavingFile.setAttribute('display', 'none');
-document.body.appendChild(linkForSavingFile);
+const defaultStyles = `* {  box-sizing: border-box;}html {  height: 100vh;  width: 100vw;}
+body {  padding: 3px;  margin: 0;  height: 100%;  width: 100%;}
+button {  padding: 3px;  margin: 3px;  cursor: pointer;}p {margin: 0;}`;
 
 let selectBlock = '';
 function selectNewBlock(node) {
@@ -151,7 +150,16 @@ export class VirtualNodeFactory {
   }
   makeSaveListener() {
     document.getElementById('saveSite').onclick = function () {
-      const csvData = 'data:application/html;charset=utf-8,' + encodeURIComponent(document.documentElement.innerHTML);
+      let site = document.getElementsByClassName('node')[0].outerHTML;
+      const buttonsBars = document.getElementsByClassName('buttonBar');
+
+      for (const buttonsBar of buttonsBars) {
+        site = site.split(buttonsBar.outerHTML).join('');
+      }
+      site = site.split('outline: red solid 3px;').join('');
+      site += `<style type="text/css"> ${defaultStyles} </style>`;
+
+      const csvData = 'data:application/html;charset=utf-8,' + encodeURIComponent(site);
       this.href = csvData;
       this.target = '_blank';
       this.download = 'index.html';
