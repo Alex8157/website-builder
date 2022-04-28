@@ -1,15 +1,20 @@
 import { ButtonFactory } from './buttonFactory.js';
 
 const defaultStyle = {
-  zIndex: '10',
+  zIndex: '5',
   position: 'fixed',
-  top: '16px',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: 'white',
-  border: '1px solid black',
-  borderRadius: '5px',
-  flexDirection: 'row'
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '47px',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgb(143, 193, 226)'
+};
+
+const buttonDefaultStyle = {
+  margin: '0 1% 0 1%'
 };
 
 export class ButtonBar {
@@ -22,6 +27,7 @@ export class ButtonBar {
     for (const key in this.handlers) {
       const button = buttonFactory.create(this.handlers[key].name);
       button.addEventListener('click', this.handlers[key].handler);
+      Object.assign(button.style, buttonDefaultStyle);
       bar.appendChild(button);
     }
     bar.className = 'buttonBar';

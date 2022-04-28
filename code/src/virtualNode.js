@@ -11,7 +11,7 @@ const defaultStyle = {
   marginRight: '0',
   marginBottom: '0',
 
-  backgroundColor: 'rgba(245, 247, 250, 0.8)',
+  backgroundColor: 'rgba(255, 255, 255, 1)',
   backgroundImage: 'url()',
   backgroundSize: '100%',
 
@@ -20,8 +20,8 @@ const defaultStyle = {
 
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: 'rgb(10, 0, 70)',
-  borderRadius: '5px',
+  borderColor: 'rgb(49, 112, 143)',
+  borderRadius: '0',
 
   fontSize: '16px',
   fontWeight: 'normal',
@@ -107,11 +107,11 @@ export class VirtualNode {
     textNode.textContent = text;
   }
   select() {
-    this.DOMElement.style.outline = '3px solid red';
+    this.DOMElement.style.outline = '3px solid rgb(226,125,95)';
     this.DOMElement.style.zIndex = '9';
   }
   canselSelect() {
-    this.DOMElement.style.outline = '0px solid red';
+    this.DOMElement.style.outline = '0px solid rgb(226,125,95)';
     this.DOMElement.style.zIndex = '0';
   }
 }

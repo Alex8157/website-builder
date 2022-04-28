@@ -1,15 +1,23 @@
-const cardDOM = `<p>Вставьте текст ссылки:</p>
-<input>
-<p>Вставьте ссылку:</p>
-<input>
-<button>Применить</button>`;
+const cardDOM = `
+<div style="display: flex;flex-direction: row;  align-items: flex-end;">
+  <div>
+    <p>Вставьте текст ссылки:</p>
+    <input>
+    <p style="margin-top:10px">Вставьте ссылку:</p>
+    <input>
+  </div>
+  <div style="margin-left:10px">
+    <button>Применить</button>
+  </div>
+</div>`;
 
 const defaultStyle = {
   zIndex: '100',
   top: '40%',
   position: 'fixed',
-  border: '1px solid black',
-  borderRadius: '5px'
+  border: '1px solid rgb(49, 112, 143)',
+  borderRadius: '5px',
+  backgroundColor: 'rgb(143, 193, 226)'
 };
 
 export class AddA {

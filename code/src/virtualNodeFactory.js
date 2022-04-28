@@ -23,7 +23,7 @@ document.body.appendChild(addA.DOMElement);
 document.body.appendChild(savePanel.DOMElement);
 
 const defaultStyles = `* {  box-sizing: border-box;}html {  height: 100vh;  width: 100vw;}
-body {  padding: 3px;  margin: 0;  height: 100%;  width: 100%;}
+body {  padding: 0;  margin: 0;  height: 100%;  width: 100%;}
 button {  padding: 3px;  margin: 3px;  cursor: pointer;}p {margin: 0;}`;
 
 let selectBlock = '';
@@ -156,7 +156,7 @@ export class VirtualNodeFactory {
       for (const buttonsBar of buttonsBars) {
         site = site.split(buttonsBar.outerHTML).join('');
       }
-      site = site.split('outline: red solid 3px;').join('');
+      site = site.split('outline: rgb(226, 125, 95) solid 3px;').join('');
       site += `<style type="text/css"> ${defaultStyles} </style>`;
 
       const csvData = 'data:application/html;charset=utf-8,' + encodeURIComponent(site);

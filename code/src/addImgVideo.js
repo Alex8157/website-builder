@@ -6,8 +6,9 @@ const defaultStyle = {
   zIndex: '10',
   top: '40%',
   position: 'fixed',
-  border: '1px solid black',
-  borderRadius: '5px'
+  border: '1px solid rgb(49, 112, 143)',
+  borderRadius: '5px',
+  backgroundColor: 'rgb(143, 193, 226)'
 };
 
 export class AddImgVideo {

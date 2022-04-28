@@ -1,83 +1,89 @@
 import { rgbToHex, hexToRGB } from './rgbToHex.js';
 
 const cardDOM = `
+<div style="display: flex;flex-direction: row">
 <div>
-  <h4 style="margin:0">Настройки блока</h4>
-  Высота блока (в % от родительского блока):
-  <input id="heightBlock" style="width:30px"><br>
-  Ширина блока (в % от родительского блока):
-  <input id="widthBlock" style="width:30px"><br>
-  <div>Размер блока по содержимому:
-  <input type="checkbox" id="sizeByContentCheckbox" style="margin:0"></div>
-  Ориентация внутри блока:
-  <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
-  <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка</div><br>
-</div>
-<div>
-  <h4 style="margin:0">Настройки отступов</h4>
-  Отступ внутри блока слева (в пикселях):
-  <input id="paddingBlockLeft" style="width:40px"><br>
-  Отступ внутри блока сверху (в пикселях):
-  <input id="paddingBlockTop" style="width:40px"><br>
-  Отступ внутри блока справа (в пикселях):
-  <input id="paddingBlockRight" style="width:40px"><br>
-  Отступ внутри блока снизу (в пикселях):
-  <input id="paddingBlockBottom" style="width:40px"><br><br>
+  <div class = "changeBlockDiv">
+    <h4 style="margin:0">Настройки блока</h4>
+    Высота блока (в % от родительского блока):
+    <input id="heightBlock" style="width:30px"><br>
+    Ширина блока (в % от родительского блока):
+    <input id="widthBlock" style="width:30px"><br>
+    Размер блока по содержимому:
+    <input type="checkbox" id="sizeByContentCheckbox" style="margin:0"><br>
+    Ориентация внутри блока:
+    <input class="orientationRadio" type="radio" name="orientation" value="row">Ряд
+    <input class="orientationRadio" type="radio" name="orientation" value="column">Колонка
+  </div>
+  <div class = "changeBlockDiv">
+    <h4 style="margin:0">Настройки фона</h4>
+    Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
+    Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"><br>
+    Использовать в качестве фона изображение:
+    <input type="checkbox" id="backgroundImageCheckbox" style="margin:0"><br>
+    Ссылка на изображение:&nbsp<input id="backgroundImageURL" style="width:130px"><br>
+  </div>
+  <div class = "changeBlockDiv">
+    <h4 style="margin:0">Настройки отступов</h4>
+    Отступ внутри блока слева (в пикселях):
+    <input id="paddingBlockLeft" style="width:40px"><br>
+    Отступ внутри блока сверху (в пикселях):
+    <input id="paddingBlockTop" style="width:40px"><br>
+    Отступ внутри блока справа (в пикселях):
+    <input id="paddingBlockRight" style="width:40px"><br>
+    Отступ внутри блока снизу (в пикселях):
+    <input id="paddingBlockBottom" style="width:40px"><br><br>
 
-  Отступ снаружи блока слева (в пикселях):
-  <input id="marginBlockLeft" style="width:40px"><br>
-  Отступ снаружи блока сверху (в пикселях):
-  <input id="marginBlockTop" style="width:40px"><br>
-  Отступ снаружи блока справа (в пикселях):
-  <input id="marginBlockRight" style="width:40px"><br>
-  Отступ снаружи блока снизу (в пикселях):
-  <input id="marginBlockBottom" style="width:40px"><br><br>
-</div>
-<div>
-  <h4 style="margin:0">Настройки фона</h4>
-  Цвет фона:&nbsp<input id="colorPicker" type="color"><br>
-  Прозрачность фона (в %):&nbsp<input id="opacity" style="width:30px"><br>
-  Использовать в качестве фона изображение:
-  <input type="checkbox" id="backgroundImageCheckbox" style="margin:0"><br>
-  Ссылка на изображение:&nbsp<input id="backgroundImageURL" style="width:130px"><br><br>
-</div>
-<div>
-  <h4 style="margin:0">Настройки рамки</h4>
-  Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
-  Стиль рамки:&nbsp
-  <select id="selectBorderStyle">
-    <option id="selectBorderStyleNone" value="none">Нет</option>
-    <option id="selectBorderStyleSolid" value="solid">Сплошной</option>
-    <option id="selectBorderStyleDouble" value="double">Двойной</option>
-    <option id="selectBorderStyleDashed" value="dashed">Пунктир</option>
-  </select><br>
-  Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
-  Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"><br><br>
-</div>
-<div>
-  <h4 style="margin:0">Настройки текста</h4>
-  Размер шрифта (в пикселях):
-  <input id="fontSize" style="width:30px"><br>
-  Цвет текста:
-  <input type="color"  id="colorPickerText"><br>
-  Жирный текст:
-  <input type="checkbox" id="fontWeightCheckbox" style="margin:0"><br>
-  Курсив:
-  <input type="checkbox" id="fontStyleCheckbox" style="margin:0"><br>
-  Текст:<br>
-  <textarea id="textChangeBlock" style="min-width:100%; min-height:100px;"></textarea><br>
-</div>
-<div>
-  <button>Применить</button>
+    Отступ снаружи блока слева (в пикселях):
+    <input id="marginBlockLeft" style="width:40px"><br>
+    Отступ снаружи блока сверху (в пикселях):
+    <input id="marginBlockTop" style="width:40px"><br>
+    Отступ снаружи блока справа (в пикселях):
+    <input id="marginBlockRight" style="width:40px"><br>
+    Отступ снаружи блока снизу (в пикселях):
+    <input id="marginBlockBottom" style="width:40px"><br>
+  </div>
+  </div>
+  <div>
+  <div class = "changeBlockDiv">
+    <h4 style="margin:0">Настройки рамки</h4>
+    Толщина рамки (в пикселях):&nbsp<input id="borderWidth" style="width:30px"><br>
+    Стиль рамки:&nbsp
+    <select id="selectBorderStyle">
+      <option id="selectBorderStyleNone" value="none">Нет</option>
+      <option id="selectBorderStyleSolid" value="solid">Сплошной</option>
+      <option id="selectBorderStyleDouble" value="double">Двойной</option>
+      <option id="selectBorderStyleDashed" value="dashed">Пунктир</option>
+    </select><br>
+    Цвет рамки:&nbsp<input id="borderColor" type="color"><br>
+    Радиус скругления рамки (в пикселях):&nbsp<input id="borderRadius" style="width:30px"><br>
+  </div>
+  <div class = "changeBlockDiv">
+    <h4 style="margin:0">Настройки текста</h4>
+    Размер шрифта (в пикселях):
+    <input id="fontSize" style="width:30px"><br>
+    Цвет текста:
+    <input type="color"  id="colorPickerText"><br>
+    Жирный текст:
+    <input type="checkbox" id="fontWeightCheckbox" style="margin:0"><br>
+    Курсив:
+    <input type="checkbox" id="fontStyleCheckbox" style="margin:0"><br>
+    Текст:<br>
+    <textarea id="textChangeBlock" style="min-width:100%; min-height:150px;"></textarea><br>
+  </div>
+  <div style=" text-align: right;">
+    <button>Применить</button>
+  </div>
+  </div>
 </div>
 `;
 
 const defaultStyle = {
   zIndex: '10',
-  top: '5%',
-  position: 'fixed',
-  border: '1px solid black',
-  borderRadius: '5px'
+  top: '20%',
+  border: '1px solid rgb(49, 112, 143)',
+  borderRadius: '5px',
+  backgroundColor: 'rgb(143, 193, 226)'
 };
 
 export class ChangeBlock {
