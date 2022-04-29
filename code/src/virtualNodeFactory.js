@@ -22,9 +22,29 @@ document.body.appendChild(addImgVideo.DOMElement);
 document.body.appendChild(addA.DOMElement);
 document.body.appendChild(savePanel.DOMElement);
 
-const defaultStyles = `* {  box-sizing: border-box;}html {  height: 100vh;  width: 100vw;}
-body {  padding: 0;  margin: 0;  height: 100%;  width: 100%;}
-button {  padding: 3px;  margin: 3px;  cursor: pointer;}p {margin: 0;}`;
+const defaultStyles = `
+    * {  box-sizing: border-box;}
+    html {  height: 100vh;  width: 100vw;}
+    body {  padding: 0;  margin: 0;  height: 100%;  width: 100%;}
+    button {  padding: 3px;  margin: 3px;  cursor: pointer;}
+    p {margin: 0;}`;
+
+const siteFirstPart = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>`;
+
+const siteSecondPart = `
+</head>
+<body>
+`;
+
+const siteThirdPart = `
+</body>
+</html>`;
 
 let selectBlock = '';
 function selectNewBlock(node) {
@@ -105,6 +125,7 @@ export class VirtualNodeFactory {
         name: 'Удалить',
         handler: () => {
           node.deleteNode();
+          activeBarBuffer.hideActiveBar();
         }
       },
       copy: {
@@ -150,14 +171,20 @@ export class VirtualNodeFactory {
   }
   makeSaveListener() {
     document.getElementById('saveSite').onclick = function () {
-      let site = document.getElementsByClassName('node')[0].outerHTML;
+      let site =
+        siteFirstPart +
+        `
+    <style> ${defaultStyles}
+    </style>` +
+        siteSecondPart +
+        document.getElementsByClassName('node')[0].outerHTML +
+        siteThirdPart;
       const buttonsBars = document.getElementsByClassName('buttonBar');
 
       for (const buttonsBar of buttonsBars) {
         site = site.split(buttonsBar.outerHTML).join('');
       }
       site = site.split('outline: rgb(226, 125, 95) solid 3px;').join('');
-      site += `<style type="text/css"> ${defaultStyles} </style>`;
 
       const csvData = 'data:application/html;charset=utf-8,' + encodeURIComponent(site);
       this.href = csvData;
