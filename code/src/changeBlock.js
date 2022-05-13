@@ -69,7 +69,7 @@ const cardDOM = `
     Курсив:
     <input type="checkbox" id="fontStyleCheckbox" style="margin:0"><br>
     Текст:<br>
-    <textarea id="textChangeBlock" style="min-width:100%; min-height:150px;"></textarea><br>
+    <textarea id="textChangeBlock" style="width:100%; min-height:150px;"></textarea><br>
   </div>
   <div style=" text-align: right;">
     <button>Применить</button>

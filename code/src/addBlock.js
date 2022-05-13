@@ -9,10 +9,10 @@ const cardDOM = `
     <button value = 'p'>Параграф</button>
   </div>
   <div class="addBlockDiv">
-    <button value = 'article'>Статью</button>
-    <button value = 'button'>Кнопку</button>
+    <button value = 'article'>Статья</button>
+    <button value = 'button'>Кнопка</button>
     <button value = 'video'>Видео</button>
-    <button value = 'a'>Ссылку</button>
+    <button value = 'a'>Ссылка</button>
   </div>
   <div class="addBlockDiv">
     <button value = 'input'>Поле для ввода текста (одна строка)</button>
