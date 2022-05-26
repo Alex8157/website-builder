@@ -25,7 +25,8 @@
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "eslint --fix --ignore-path .gitignore .",
     "prettier": "npx prettier --write .",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "build": "webpack --mode production"
   },
   "engines": {
     "node": ">=16"
